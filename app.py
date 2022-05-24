@@ -14,10 +14,10 @@ local_css("style/style.css")
 		
 # ---- Show PDF ----
 def show_pdf(file_path):
-    with open(file_path,"rb") as f:
-        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-    pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="800" type="application/pdf"></iframe>'
-    st.markdown(pdf_display, unsafe_allow_html=True)
+	with open(file_path, 'rb') as f:
+		base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+	pdf_display = f'<iframe src="data:application/pdf;base64, {base64_pdf}" width="1175" height="900" type="application/pdf"></iframe>'
+	st.markdown(pdf_display, unsafe_allow_html=True)
 		
 #show_pdf('docs/CV_for_Desire_Munyikwa.pdf')
 
@@ -36,6 +36,21 @@ with st.container():
 	st.title("A GIS Developer/ Eng. Surveyor from Chisumbanje")
 	st.write("I am passionate about GIS, RS and ways to automate daily tasks and develop decision support systems using python ")
 	#st.write("[View CV](docs/CV_for_Desire_Munyikwa.pdf)")
+	
+	col1, col2, col3 = st.columns(3)
+	with col1:
+		if st.button('View CV', key='1'):
+			show_pdf('docs/CV_for_Desire_Munyikwa.pdf')
+			
+	with col2:
+		st.button('Close ', key='2')		
+	with col3:
+		with open('docs/CV_for_Desire_Munyikwa.pdf', 'rb') as pdf_file:
+			PDFbyte = pdf_file.read()
+		st.download_button(label = 'Dowload CV', key='3',
+			data = PDFbyte,
+			file_name = 'CV_for_Desire_Munyikwa.pdf',
+			mime = 'application/octet-stream')
 	
 	
 # ---- WHAT I DO ----
@@ -66,7 +81,7 @@ with st.container():
 		with text_column:
 			st.subheader("Greenfuel GIS portal")
 			st.write("""
-				Developed a web application that displays interactive maps for all estates. The site includes an application to download maps and files.
+				I am currently developing a web application that displays interactive maps for all estates. The site includes an application to download maps and files.
 				It has a third party [app](https://flurosense.com/app/maps/) to monitor crops using satellite data. Also, it includes a dashboard to show the major statistics and trend visualizations.
 				[Visit Portal](http://172.16.5.94:8000)
 			""")
